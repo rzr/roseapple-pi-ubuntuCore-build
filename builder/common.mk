@@ -31,7 +31,7 @@ UBOOT_SRC := $(PWD)/u-boot
 UBOOT_OUT := $(PWD)/u-boot-build
 UBOOT_BIN := $(UBOOT_OUT)/u-boot-dtb.img
 
-UDF := $(TOOLS_DIR)/ubuntu-device-flash
+UDF := /snap/bin/ubuntu-device-flash
 
 ifeq ($(TOOLCHAIN),VENDOR)
 CC :=
