@@ -24,7 +24,7 @@ ifeq ($(SNAPPY_CORE_NEW),no)
 		$(eval REVISION = --revision $(SNAPPY_CORE_VER))
 endif
 	@echo "build snappy..."
-	sudo $(UDF) core 16 -v \
+	sudo UBUNTU_DEVICE_FLASH_IGNORE_UNSTABLE_GADGET_DEFINITION=y $(UDF) core 16 -v \
 		--channel $(SNAPPY_CORE_CH) \
 		--size 4 \
 		--enable-ssh \
