@@ -8,19 +8,19 @@ kernel_addr=0x00008000
 initrd_addr=0x01ffffc0
 fdt_addr=0x04000000
 
-kernel_file=vmlinuz
+kernel_file=kernel.img
 initrd_file=initrd.img
 fdtfile=actduino_bubble_gum_sdboot_linux.dtb
 
 # functions to load kernel, initrd and fdt from various env values
 loadfiles=run loadkernel; run loadinitrd; run loadfdt
-loadkernel=fatload mmc ${mmcdev}:${mmcpart} ${kernel_addr} ${snappy_kernel}/${kernel_file}
-loadfdt=fatload mmc ${mmcdev}:${mmcpart} ${fdt_addr} ${snappy_kernel}/dtbs/${fdtfile}
-loadinitrd=fatload mmc ${mmcdev}:${mmcpart} ${initrd_addr} ${snappy_kernel}/${initrd_file}; setenv initrd_size ${filesize}
+loadkernel=fatload mmc ${mmcdev}:${mmcpart} ${kernel_addr} ${snap_kernel}/${kernel_file}
+loadfdt=fatload mmc ${mmcdev}:${mmcpart} ${fdt_addr} ${snap_kernel}/dtbs/${fdtfile}
+loadinitrd=fatload mmc ${mmcdev}:${mmcpart} ${initrd_addr} ${snap_kernel}/${initrd_file}; setenv initrd_size ${filesize}
 
 # if we're trying a new version, check if stamp file is already there to revert
 # to other version
-snappy_boot=if test "${snappy_mode}" = "try"; then if test "${snappy_trial_boot}" = "1"; then setenv snappy_os "${snappy_good_os}"; setenv snappy_kernel "${snappy_good_kernel}"; saveenv; else setenv snappy_trial_boot 1; saveenv; fi; fi; run loadfiles; setenv mmcroot "/dev/disk/by-label/writable ${snappy_cmdline} snap_core=${snappy_os} snap_kernel=${snappy_kernel}"; run mmcargs; bootz ${kernel_addr} ${initrd_addr}:${initrd_size} ${fdt_addr}
+snappy_boot=if test "${snap_mode}" = "try"; then setenv snap_mode "trying"; saveenv; if test "${snap_try_core}" != ""; then setenv snap_core "${snap_try_core}"; fi; if test "${snap_try_kernel}" != ""; then setenv snap_kernel "${snap_try_kernel}"; fi; elif test "${snap_mode}" = "trying"; then setenv snap_mode ""; saveenv; fi; run loadfiles; setenv mmcroot "/dev/disk/by-label/writable ${snappy_cmdline} snap_core=${snap_core} snap_kernel=${snap_kernel}"; run mmcargs; bootz ${kernel_addr} ${initrd_addr}:${initrd_size} ${fdt_addr}
 snappy_cmdline=net.ifnames=0 init=/lib/systemd/systemd ro panic=-1 fixrtc
 snappy_mode=regular
 snappy_trial_boot=0
