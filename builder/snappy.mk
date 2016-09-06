@@ -1,7 +1,6 @@
 include common.mk
 
-SNAPPY_VERSION := `date +%Y%m%d`-0
-SNAPPY_IMAGE := roseapple-pi-${SNAPPY_VERSION}.img
+SNAPPY_IMAGE := $(shell i="0"; while ls roseapple-pi-`date +%Y%m%d`-$${i}.img* 1> /dev/null 2>&1; do i=$$((i+1)); done; echo "roseapple-pi-`date +%Y%m%d`-$${i}.img")
 # yes for latest version; no for the specific revision of edge/stable channel
 SNAPPY_CORE_NEW := yes
 SNAPPY_CORE_VER ?=
