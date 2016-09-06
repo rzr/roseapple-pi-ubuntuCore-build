@@ -43,7 +43,7 @@ ifeq ($(SNAPPY_WORKAROUND),yes)
 endif
 
 pack:
-	xz -0 $(SNAPPY_IMAGE)
+	pxz -9 $(SNAPPY_IMAGE)
 
 build: build-snappy fix-bootflag workaround pack 
 
