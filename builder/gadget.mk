@@ -1,6 +1,6 @@
 include common.mk
 
-OEM_UBOOT_BIN := gadget/boot-assets/u-boot.bin
+OEM_UBOOT_BIN := $(OEM_BOOT_DIR)/boot-assets/u-boot.bin
 OEM_SNAP := $(OUTPUT_DIR)/*.snap
 
 # for preloader packaging
