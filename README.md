@@ -1,8 +1,8 @@
-# SnappyUbuntuCore
-Develop Roseapple Pi to Snappy 16 [Snappy Ubuntu Core](http://developer.ubuntu.com/snappy/) 
+# port of roseapple-pi board to snappy ubuntu core
+build of port for roseapple pi to Ubuntu core series 16 [Snappy Ubuntu Core](http://developer.ubuntu.com/snappy/) 
 
 ## Structure
-builder: build Snappy via makefiles, and that includes Gadget snap and Kernel snap.  
+builder: build board image for Ubuntu core via makefiles, and that includes Gadget snap and Kernel snap.  
 prebuild: prebuild iamge for test purpose.
 
 ## Requirements
@@ -13,7 +13,8 @@ To build all parts, a couple of dependencies are required. On Ubuntu you can ins
 ```bash
 sudo apt-get update
 sudo apt-get install -y build-essential u-boot-tools lzop debootstrap gcc-4.8-arm-linux-gnueabihf device-tree-compiler
-sudo apt-get install -y ubuntu-device-flash ubuntu-snappy snapcraft
+sudo apt-get install -y ubuntu-snappy snapcraft
+sudo snap install --devmode --edge ubuntu-image
 ```
 
 Note: there is no 4.x cross toolchain available in Ubuntu 16.04 LTS. Use the linaro toolchain instead:
@@ -35,7 +36,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ### Limitation
 xapp-le kernel can't be cross compiled by gcc 5+ arm-linux-gnueabihf, so you have to make soft link to gcc 4.8 related toolchain.  
 
-For ubuntu-device-flash, we still use the binary provided by mvo's [u-d-f](https://people.canonical.com/~mvo/all-snaps/ubuntu-device-flash) to build Ubuntu Core 16 image temporarily. I also put it as backup in folder builder/tools
+ubuntu-image is still in early days of development, so it has to be installed in devmode and best from edge or beta channel
 
 Generate ssh key-pair if you did not have one
 
@@ -56,18 +57,17 @@ A `Makefile` is provided to build Snappy, Gadget snap, U-Boot, Kernel snap from 
 To build it all, just run `make snappy`. This will produce a Snappy image, a gadget snap `roseapple-pi_x.y_all.snap` and a kernel snap `roseapple-pi-kernel_x.y.z.snap` for device part, which can be used to build your own Snappy image.
 
 ### Custom Image
-If you want to build the speical version with including the snap you'd like to install from ubuntu store, you can modify the snappy.mk to reach it. For example:  
-
+You can build custom image with extra snaps included, 
 ```bash
-sudo ubuntu-device-flash core 16 \
-	--channel $CHANNEL \
-	--size 4 \
-	--enable-ssh \
-	--gadget roseapple-pi_x.y_all.snap \
-	--kernel roseapple-pi-kernel_x.y.z.snap \
-	--os ubuntu-core \
-	--install docker \
-	-o snappy-16.img
+/snap/bin/ubuntu-image \
+	-c <channel for core image> \
+	--image-size 4G \
+	--extra-snaps roseapple-pi_<gadget snap version>_armhf.snap \
+	--extra-snaps roseapple-pi-kernel_<kernel snap version>_armhf.snap \
+	--extra-snaps snapweb \
+	--extra-snaps <more addoitional snaps>
+	-o roseapple-<some version to identify new image>.img \
+	roseapple.model
 ```
 
 ### Build U-boot
