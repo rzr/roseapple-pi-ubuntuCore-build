@@ -13,7 +13,7 @@ distclean: clean
 	cd $(KERNEL_BUILD); snapcraft clean
 
 build:
-	cd $(KERNEL_BUILD); snapcraft clean; snapcraft --target-arch armhf snap
+	cd $(KERNEL_BUILD); snapcraft --target-arch armhf snap
 	cp $(KERNEL_BUILD)/$(KERNEL_SNAP) $(OUTPUT_DIR)
 
 .PHONY: build
