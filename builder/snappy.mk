@@ -2,12 +2,14 @@ include common.mk
 
 SNAPPY_IMAGE := $(shell i="0"; while ls roseapple-pi-`date +%Y%m%d`-$${i}.img* 1> /dev/null 2>&1; do i=$$((i+1)); done; echo "roseapple-pi-`date +%Y%m%d`-$${i}.img")
 # yes for latest version; no for the specific revision of edge/stable channel
-SNAPPY_CORE_CH := edge
+UBUNTU_CORE_CH := edge
+# UBUNTU_CORE_CH := beta
+GADGET_MODEL := roseapple.model
 GADGET_SNAP := roseapple-pi_$(GADGET_VERSION)_armhf.snap
-KERNEL_SNAP_VERSION := `cat $(KERNEL_SRC)/prime/meta/snap.yaml | grep version: | awk '{print $$2}'`
+KERNEL_SNAP_VERSION := `grep version: $(KERNEL_SRC)/prime/meta/snap.yaml | awk '{print $$2}'`
 KERNEL_SNAP := roseapple-pi-kernel_$(KERNEL_SNAP_VERSION)_armhf.snap
-REVISION ?=
 SNAPPY_WORKAROUND := no
+UBUNTU_IMAGE=/snap/bin/ubuntu-image
 
 all: build
 
@@ -17,16 +19,15 @@ distclean: clean
 
 build-snappy:
 	@echo "build snappy..."
-	sudo UBUNTU_DEVICE_FLASH_IGNORE_UNSTABLE_GADGET_DEFINITION=y $(UDF) core 16 -v \
-		--channel $(SNAPPY_CORE_CH) \
-		--size 4 \
-		--enable-ssh \
-		--developer-mode \
-		--gadget $(GADGET_SNAP) \
-		--kernel $(KERNEL_SNAP) \
-		--os ubuntu-core \
+	$(UBUNTU_IMAGE) \
+		-c $(UBUNTU_CORE_CH) \
+		--image-size 4G \
+		--extra-snaps $(GADGET_SNAP) \
+		--extra-snaps $(KERNEL_SNAP) \
+		--extra-snaps snapweb \
 		-o $(SNAPPY_IMAGE) \
-		$(REVISION)
+		$(GADGET_MODEL)
+
 
 fix-bootflag:
 	dd conv=notrunc if=boot_fix.bin of=$(SNAPPY_IMAGE) seek=440 oflag=seek_bytes
