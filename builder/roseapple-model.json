@@ -1,0 +1,11 @@
+{
+  "type": "model",
+  "authority-id": "Cxmg9kqrPxzY17LJHVYcNlvtE0eI1MRI",
+  "brand-id": "Cxmg9kqrPxzY17LJHVYcNlvtE0eI1MRI",
+  "series": "16",
+  "model": "roseapple",
+  "architecture": "armhf",
+  "gadget": "roseapple-pi",
+  "kernel": "roseapple-pi-kernel",
+  "timestamp": "2016-09-14T15:40:15+00:00"
+}
