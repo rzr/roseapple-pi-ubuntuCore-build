@@ -11,3 +11,8 @@ builder/roseapple-pi_*.snap
 # uboot build
 u-boot-build/
 u-boot/
+
+# gadget snap artifacts
+builder/gadget/boot-assets/
+builder/gadget/uboot.conf
+builder/gadget/uboot.env
