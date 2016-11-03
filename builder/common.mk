@@ -15,7 +15,6 @@ TOOLCHAIN := DEB
 
 ARCH := arm
 KERNEL_DTS := actduino_bubble_gum_sdboot_linux
-KERNEL_DEFCONFIG := snappy-actduino_bubble_gum_linux_defconfig
 UBOOT_DEFCONFIG := actduino_bubble_gum_v10_defconfig
 
 KERNEL_REPO := https://github.com/kubiko/kernel-roseapple-pi.git
