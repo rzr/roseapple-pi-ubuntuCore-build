@@ -5,7 +5,6 @@ SNAPPY_IMAGE := $(shell i="0"; while ls roseapple-pi-`date +%Y%m%d`-$${i}.img* 1
 SNAPPY_CORE_NEW := yes
 SNAPPY_CORE_VER ?=
 SNAPPY_CORE_CH := edge
-GADGET_VERSION := `cat gadget/meta/snap.yaml | grep version: | awk '{print $$2}'`
 GADGET_SNAP := roseapple-pi_$(GADGET_VERSION)_all.snap
 KERNEL_SNAP_VERSION := `cat $(KERNEL_SRC)/prime/meta/snap.yaml | grep version: | awk '{print $$2}'`
 KERNEL_SNAP := roseapple-pi-kernel_$(KERNEL_SNAP_VERSION)_armhf.snap
