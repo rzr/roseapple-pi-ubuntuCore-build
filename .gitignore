@@ -7,3 +7,7 @@ builder/kernel/stage/
 # snaps and images
 builder/roseapple-pi-*.img.xz
 builder/roseapple-pi_*.snap
+
+# uboot build
+u-boot-build/
+u-boot/
