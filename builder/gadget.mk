@@ -21,19 +21,18 @@ clean:
 distclean: clean
 
 u-boot:
+	@if [ ! -d $(GADGET_DIR)/boot-assets ] ; then mkdir $(GADGET_DIR)/boot-assets; fi
 	@if [ ! -f $(UBOOT_BIN) ] ; then echo "Build u-boot first."; exit 1; fi
-		cp -f $(UBOOT_BIN) $(OEM_UBOOT_BIN)
+	cp -f $(UBOOT_BIN) $(OEM_UBOOT_BIN)
 
-preload:
-	cd $(TOOLS_DIR)/utils && ./$(BOOTLOADER_PACK) $(PRELOAD_DIR)/bootloader.bin $(PRELOAD_DIR)/bootloader.ini $(GADGET_DIR)/bootloader.bin
+preload: u-boot
+	$(TOOLS_DIR)/utils/$(BOOTLOADER_PACK) $(PRELOAD_DIR)/bootloader.bin $(PRELOAD_DIR)/bootloader.ini $(GADGET_DIR)/boot-assets/bootloader.bin
 	mkenvimage -r -s 131072  -o $(GADGET_DIR)/uboot.env $(GADGET_DIR)/uboot.env.in
 	@if [ ! -f $(GADGET_DIR)/uboot.conf ]; then ln -s uboot.env $(GADGET_DIR)/uboot.conf; fi
 
-snappy:
+snappy: preload
 	snapcraft snap gadget
 
-gadget: preload u-boot snappy
+build: u-boot preload snappy
 
-build: gadget
-
-.PHONY: u-boot snappy gadget build
+.PHONY: u-boot snappy gadget build preload
