@@ -1,0 +1,9 @@
+# snapcraft kernel build artefacts
+builder/kernel/parts/
+builder/kernel/prime/
+builder/kernel/roseapple-pi-kernel_*armhf.snap
+builder/kernel/stage/
+
+# snaps and images
+builder/roseapple-pi-*.img.xz
+builder/roseapple-pi_*.snap
