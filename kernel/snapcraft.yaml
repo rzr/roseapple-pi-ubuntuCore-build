@@ -1,0 +1,38 @@
+name: roseapple-pi-kernel
+version: 3.10.37-1
+summary: A roseapple kernel built from source
+description: This is the reference kernel from xapp-le branch Ubuntu-Snappy-Core
+type: kernel
+architectures: [ armhf ]
+
+parts:
+    kernel:
+        plugin: kernel
+        source: https://github.com/kubiko/kernel-roseapple-pi.git
+        source-branch: Ubuntu-Snappy-Core
+        source-type: git
+        kdefconfig: [snappy-actduino_bubble_gum_linux_defconfig]
+        kconfigs:
+            - CONFIG_LOCALVERSION="-roseapple"
+            - CONFIG_DEBUG_INFO=n
+            - CONFIG_SQUASHFS=m
+            - CONFIG_DEVPTS_MULTIPLE_INSTANCES=y
+            - CONFIG_RTL8192U=m
+            - CONFIG_BT_BCM=m
+            - CONFIG_MAC80211_LEDS=y
+            - CONFIG_RFKILL_LEDS=y
+            - CONFIG_ATH_COMMON=y
+            - CONFIG_ATH_CARDS=y
+            - CONFIG_ATH9K_HW=y
+            - CONFIG_ATH9K_COMMON=y
+            - CONFIG_ATH9K_BTCOEX_SUPPORT=y
+            - CONFIG_ATH9K_HTC=y
+            - CONFIG_ATH9K_HTC_DEBUGFS=y
+            - CONFIG_LEDS_TRIGGERS=y
+
+        kernel-initrd-modules:
+            - squashfs
+        kernel-image-target: zImage
+        kernel-device-trees:
+            - actduino_bubble_gum_sdboot_linux
+        build-packages: [bc, kmod, cpio]

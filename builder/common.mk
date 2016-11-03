@@ -1,6 +1,6 @@
 CPUS := $(shell getconf _NPROCESSORS_ONLN)
 
-include .config 
+include .config
 
 OUTPUT_DIR := $(PWD)
 SCRIPT_DIR := $(OUTPUT_DIR)/scripts
@@ -17,13 +17,7 @@ ARCH := arm
 KERNEL_DTS := actduino_bubble_gum_sdboot_linux
 UBOOT_DEFCONFIG := actduino_bubble_gum_v10_defconfig
 
-KERNEL_REPO := https://github.com/kubiko/kernel-roseapple-pi.git
-KERNEL_BRANCH := Ubuntu-Snappy-Core
-KERNEL_SRC := $(PWD)/kernel
-KERNEL_MODULES := $(PWD)/kernel-build
-KERNEL_OUT := $(PWD)/kernel-build
-KERNEL_UIMAGE := $(KERNEL_OUT)/arch/arm/boot/zImage
-KERNEL_DTB := $(KERNEL_OUT)/arch/arm/boot/dts/$(KERNEL_DTS).dtb
+KERNEL_BUILD := $(PWD)/kernel
 
 UBOOT_REPO := https://github.com/xapp-le/u-boot.git
 UBOOT_BRANCH := Ubuntu-Snappy-Core
