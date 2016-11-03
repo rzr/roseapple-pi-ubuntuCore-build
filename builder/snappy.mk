@@ -6,7 +6,7 @@ UBUNTU_CORE_CH := edge
 # UBUNTU_CORE_CH := beta
 GADGET_MODEL := roseapple.model
 GADGET_SNAP := roseapple-pi_$(GADGET_VERSION)_armhf.snap
-KERNEL_SNAP_VERSION := `grep version: $(KERNEL_SRC)/prime/meta/snap.yaml | awk '{print $$2}'`
+KERNEL_SNAP_VERSION := `grep version: $(KERNEL_BUILD)/prime/meta/snap.yaml | awk '{print $$2}'`
 KERNEL_SNAP := roseapple-pi-kernel_$(KERNEL_SNAP_VERSION)_armhf.snap
 SNAPPY_WORKAROUND := no
 UBUNTU_IMAGE=/snap/bin/ubuntu-image
@@ -40,6 +40,6 @@ endif
 pack:
 	pxz -9 $(SNAPPY_IMAGE)
 
-build: build-snappy fix-bootflag workaround pack 
+build: build-snappy fix-bootflag workaround pack
 
 .PHONY: build-snappy fix-bootflag workaround pack build
