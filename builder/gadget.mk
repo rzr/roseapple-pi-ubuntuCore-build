@@ -25,7 +25,7 @@ u-boot:
 
 preload:
 	cd $(TOOLS_DIR)/utils && ./$(BOOTLOADER_PACK) $(PRELOAD_DIR)/bootloader.bin $(PRELOAD_DIR)/bootloader.ini $(OEM_BOOT_DIR)/bootloader.bin
-	mkenvimage -r -s 131072  -o $(OEM_BOOT_DIR)/uboot.env $(OEM_BOOT_DIR)/uEnv.txt
+	mkenvimage -r -s 131072  -o $(OEM_BOOT_DIR)/uboot.env $(OEM_BOOT_DIR)/uboot.env.in
 	cd $(OEM_BOOT_DIR) && ln -s uboot.env uboot.conf
 
 snappy:
