@@ -13,8 +13,8 @@ endif
 all: build
 
 clean:
-	rm -f $(OEM_UBOOT_BIN)
-	rm -f $(GADGET_DIR)/bootloader.bin
+	rm -rf $(GADGET_DIR)/boot-assets
+	rm -f $(GADGET_DIR)/uboot.conf
 	rm -f $(GADGET_DIR)/uboot.env
 	rm -f $(OEM_SNAP)
 distclean: clean
