@@ -29,15 +29,15 @@ build-snappy:
 		$(GADGET_MODEL)
 
 
-fix-bootflag:
+fix-bootflag: build-snappy
 	dd conv=notrunc if=boot_fix.bin of=$(SNAPPY_IMAGE) seek=440 oflag=seek_bytes
 
-workaround:
+workaround: fix-bootflag
 ifeq ($(SNAPPY_WORKAROUND),yes)
 	@echo "workaround something..."
 endif
 
-pack:
+pack: workaround
 	pxz -9 $(SNAPPY_IMAGE)
 
 build: build-snappy fix-bootflag workaround pack
