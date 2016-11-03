@@ -1,0 +1,21 @@
+device-tree: actduino_bubble_gum_sdboot_linux.dtb
+volumes:
+  roseapplepi:
+    schema: mbr
+    bootloader: u-boot
+    structure:
+      - offset: 2097152 #4096*512
+        size: 2097152 # 2M
+        type: mbr
+        content:
+            - image: boot-assets/bootloader.bin
+              offset: 512 #(4097-4096)*512
+            - image: boot-assets/u-boot.bin
+              offset: 1048576 #(6144-4096)*512
+      - type: 0C
+        filesystem: vfat
+        filesystem-label: system-boot
+        size: 128M
+        content:
+          - source: boot-assets/
+            target: /
