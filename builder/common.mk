@@ -8,8 +8,9 @@ TOOLS_DIR := $(OUTPUT_DIR)/tools
 PRELOAD_DIR := $(OUTPUT_DIR)/preloader
 CONFIG_DIR := $(OUTPUT_DIR)/config/$(IC_NAME)/$(BOARD_NAME)
 GADGET_DIR := $(OUTPUT_DIR)/gadget
+GADGET_VERSION := `grep version $(OEM_BOOT_DIR)/meta/snap.yaml | awk '{print $$2}'`
 
-# VNEDOR: toolchain from BSP ; DEB: toolchain from deb
+# VENDOR: toolchain from BSP ; DEB: toolchain from deb
 TOOLCHAIN := DEB
 
 ARCH := arm

@@ -1,7 +1,7 @@
 include common.mk
 
 OEM_UBOOT_BIN := $(GADGET_DIR)/boot-assets/u-boot.bin
-OEM_SNAP := $(OUTPUT_DIR)/*.snap
+GADGET_SNAP := $(OUTPUT_DIR)/roseapple-pi_$(GADGET_VERSION)*.snap
 
 # for preloader packaging
 ifneq "$(findstring ARM, $(shell grep -m 1 'model name.*: ARM' /proc/cpuinfo))" ""
@@ -16,7 +16,8 @@ clean:
 	rm -rf $(GADGET_DIR)/boot-assets
 	rm -f $(GADGET_DIR)/uboot.conf
 	rm -f $(GADGET_DIR)/uboot.env
-	rm -f $(OEM_SNAP)
+	rm -f $(GADGET_SNAP)
+
 distclean: clean
 
 u-boot:
