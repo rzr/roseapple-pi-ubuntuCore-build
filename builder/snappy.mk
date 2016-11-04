@@ -2,8 +2,7 @@ include common.mk
 
 SNAPPY_IMAGE := $(shell i="0"; while ls roseapple-pi-`date +%Y%m%d`-$${i}.img* 1> /dev/null 2>&1; do i=$$((i+1)); done; echo "roseapple-pi-`date +%Y%m%d`-$${i}.img")
 # yes for latest version; no for the specific revision of edge/stable channel
-UBUNTU_CORE_CH := edge
-# UBUNTU_CORE_CH := beta
+UBUNTU_CORE_CH := beta
 GADGET_MODEL := roseapple.model
 GADGET_SNAP := roseapple-pi_$(GADGET_VERSION)_armhf.snap
 KERNEL_SNAP_VERSION := `grep version: $(KERNEL_BUILD)/prime/meta/snap.yaml | awk '{print $$2}'`
