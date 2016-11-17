@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -x
+
+exec >> $SNAP_COMMON/prepare-device-hook.log 2>&1
+
+#This will need hardware-observe interface
+product_serial=$(grep Serial /proc/cpuinfo  | awk '{print $3}')
+
+SERIAL_FILE=$SNAP_COMMON/test
+
+echo "product_serial:[$product_serial]" > "$SERIAL_FILE"
+
+if [ ! "$product_serial" ]; then
+    echo "Empty product_serial"
+    exit 1
+fi
+
+snapctl set device-service.url="http://162.213.35.219:8080/v1/"
+snapctl set device-service.headers='{"api-key": "serial"}'
+snapctl set registration.proposed-serial="'$product_serial'"
