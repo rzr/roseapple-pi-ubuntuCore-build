@@ -3,7 +3,7 @@
   "authority-id": "Cxmg9kqrPxzY17LJHVYcNlvtE0eI1MRI",
   "brand-id": "Cxmg9kqrPxzY17LJHVYcNlvtE0eI1MRI",
   "series": "16",
-  "model": "roseapple",
+  "model": "roseapple-pi",
   "architecture": "armhf",
   "gadget": "roseapple-pi",
   "kernel": "roseapple-pi-kernel",
